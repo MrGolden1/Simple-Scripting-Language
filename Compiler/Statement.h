@@ -4,7 +4,6 @@
 #include <sstream>
 #include <stack>
 #include <map>
-#include "Var.h"
 using namespace std;
 class Statement
 {
@@ -17,8 +16,6 @@ public:
 private:
 	string infix;
 	string postfix;
-	Var rightSide;
-	Var *leftSide;
 	bool valid;
 	map <string, int> prec;
 };

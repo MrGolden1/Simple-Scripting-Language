@@ -119,13 +119,11 @@
     <ClCompile Include="Compiler.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Statement.cpp" />
-    <ClCompile Include="Var.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="Compiler.h" />
     <ClInclude Include="Statement.h" />
-    <ClInclude Include="Var.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,7 +12,6 @@ public:
 	~Statement();
 	string getPostfixString();
 	void infixToPostfix();
-	void makeStringStandard();
 private:
 	string infix;
 	string postfix;

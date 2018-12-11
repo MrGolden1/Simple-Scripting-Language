@@ -11,4 +11,3 @@ private:
 	string postfix;
 	map <string, double> var;
 };
-

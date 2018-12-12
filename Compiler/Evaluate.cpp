@@ -1,13 +1,13 @@
-#include "Calculator.h"
+#include "Evaluate.h"
 constexpr auto PI = 3.141592653589793;
 constexpr auto CoDegreeToRadian = PI / 180;
 using namespace std;
-map <string, double> Calculator::var;
-Calculator::~Calculator()
+map <string, double> Evaluate::var;
+Evaluate::~Evaluate()
 {
 }
 
-double Calculator::postfixCalculate(string postfix)
+bool Evaluate::logicPostfixEvaluate(string postfix)
 {
 	stack <double> st;
 	stringstream line;
@@ -16,7 +16,103 @@ double Calculator::postfixCalculate(string postfix)
 	double operand1, operand2;
 	while (line >> word)
 	{
-		if (Calculator::Calculator::var.find(word) == Calculator::var.end())
+		if (Evaluate::Evaluate::var.find(word) == Evaluate::var.end())
+		{
+			switch (word[0])
+			{
+			case '#':
+			{
+				line >> operand1;
+				st.push(operand1);
+			}
+			case '|':
+			{
+				operand2 = st.top();
+				st.pop();
+				operand1 = st.top();
+				st.pop();
+				st.push(operand1 || operand2);
+			}
+			break;
+			case '&':
+			{
+				operand2 = st.top();
+				st.pop();
+				operand1 = st.top();
+				st.pop();
+				st.push(operand1 && operand2);
+			}
+			break;
+			case '~':
+			{
+				operand2 = st.top();
+				st.pop();
+				st.push(!(bool)(operand1));
+			}
+			break;
+			case '<':
+			{
+				operand2 = st.top();
+				st.pop();
+				operand1 = st.top();
+				st.pop();
+				if (word == "<=")
+				{
+					st.push(operand1 <= operand2);
+				}
+				else
+				{
+					st.push(operand1 < operand2);
+				}
+			}
+			break;
+			case '>':
+			{
+				operand2 = st.top();
+				st.pop();
+				operand1 = st.top();
+				st.pop();
+				if (word == ">=")
+				{
+					st.push(operand1 >= operand2);
+				}
+				else
+				{
+					st.push(operand1 > operand2);
+				}
+			}
+			break;
+			case '=':
+			{
+				operand2 = st.top();
+				st.pop();
+				operand1 = st.top();
+				st.pop();
+				st.push(operand1 == operand2);
+			}
+			break;
+			default:
+				break;
+			}
+		}
+		else
+		{
+			st.push(Evaluate::var[word]);
+		}
+	}
+	return st.top();
+}
+
+double Evaluate::mathPostfixEvaluate(string postfix)
+{
+	stack <double> st;
+	stringstream line;
+	line << postfix;
+	string word;
+	double operand1, operand2;
+	while (line >> word)
+	{
+		if (Evaluate::Evaluate::var.find(word) == Evaluate::var.end())
 		{
 			switch (word[0])
 			{
@@ -104,15 +200,14 @@ double Calculator::postfixCalculate(string postfix)
 					st.push(log10(operand1));
 				}
 			}
-				break;
+			break;
 			}
 		}
 		else
 		{
-			st.push(Calculator::var[word]);
+			st.push(Evaluate::var[word]);
 		}
 	}
 	return st.top();
-	return 0;
 }
 

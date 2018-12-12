@@ -7,7 +7,7 @@ public:
 	IfCommand();
 	IfCommand(string input);
 	~IfCommand();
-	virtual void runCommand() ;
+	virtual void runCommand();
 };
 
 class ElseIfCommand :

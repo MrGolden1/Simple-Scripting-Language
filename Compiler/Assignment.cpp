@@ -1,5 +1,5 @@
 #include "Assignment.h"
-
+Statement Command::st;
 using namespace std;
 Assignment::Assignment(string input)
 {
@@ -13,10 +13,15 @@ Assignment::~Assignment()
 
 void Assignment::runCommand()
 {
+	if (!Evaluate::ifStack.empty())
+	{
+		if (Evaluate::ifStack.top().first && Evaluate::ifStack.top().second)
+		{
+			return;
+		}
+	}
 	parsingExpression();
-	Statement st(right);
-	Calculator::var[left] = Calculator::postfixCalculate(st.infixToPostfix());
-	cout << Calculator::var[left] << endl;
+	Evaluate::var[left] = Evaluate::mathPostfixEvaluate(st.infixToPostfix(right));
 }
 
 void Assignment::parsingExpression() 

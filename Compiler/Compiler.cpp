@@ -34,7 +34,14 @@ void Compiler::printCode()
 {
 	for (int i = 0; i < lines.size(); i++)
 	{
-		cout << lines[i] << endl;
+		for (int j = 0; lines[i][j] ; j++)
+		{
+			if (lines[i][j] != '#')
+			{
+				cout << lines[i][j];
+			}
+		}
+		cout << endl;
 	}
 }
 
@@ -100,7 +107,7 @@ string Compiler::makeStringStandard(string line)
 	string standard;
 	bool preIsOperator = false;
 	int i = 0;
-	while (line[i])
+	while (i < line.size())
 	{
 		while (line[i] && line[i] == ' ')
 		{
@@ -114,14 +121,14 @@ string Compiler::makeStringStandard(string line)
 			preIsOperator = false;
 			continue;
 		}
-		if (!preIsOperator && (line[i] == '*' || line[i] == '/' || line[i] == '+' || line[i] == '-' || line[i] == '=' || line[i] == '^' || line[i] == '&' || line[i] == '~' || line[i] == '|' || line[i] == '>' || line[i] == '<' || line[i] == ';' ) )
+		if ( !preIsOperator && (line[i] == '*' || line[i] == '/' || line[i] == '+' || line[i] == '-' || line[i] == '=' || line[i] == '^' ) )
 		{
 			standard += line[i++];
 			standard += ' ';
 			preIsOperator = true;
 			continue;
 		}
-		if (line[i] == ')')
+		if (line[i] == ')' || line[i] == '&' || line[i] == '~' || line[i] == '|' || line[i] == '>' || line[i] == '<' || line[i] == ';')
 		{
 			standard += line[i++];
 			standard += ' ';

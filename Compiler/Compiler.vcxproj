@@ -120,20 +120,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Assignment.cpp" />
-    <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Compiler.cpp" />
     <ClCompile Include="CoutCommand.cpp" />
+    <ClCompile Include="Evaluate.cpp" />
     <ClCompile Include="IfCommand.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Statement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assignment.h" />
-    <ClInclude Include="Calculator.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Compiler.h" />
     <ClInclude Include="CoutCommand.h" />
+    <ClInclude Include="Evaluate.h" />
     <ClInclude Include="IfCommand.h" />
     <ClInclude Include="Statement.h" />
   </ItemGroup>

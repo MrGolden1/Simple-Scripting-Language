@@ -8,14 +8,10 @@ using namespace std;
 class Statement
 {
 public:
-	Statement(string in);
+	Statement();
 	~Statement();
-	string getPostfixString();
-	string infixToPostfix();
+	string infixToPostfix(string infix);
 private:
-	string infix;
-	string postfix;
-	bool valid;
 	map <string, int> prec;
 };
 

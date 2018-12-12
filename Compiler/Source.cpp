@@ -3,7 +3,6 @@
 #include <string>
 #include <sstream>
 #include "Statement.h"
-#include "Calculator.h"
 #include "Compiler.h"
 #include <conio.h>
 using namespace std;

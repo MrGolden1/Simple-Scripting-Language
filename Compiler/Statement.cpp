@@ -2,26 +2,21 @@
 #include <stack>
 using namespace std;
 
-Statement::Statement(string in) : infix(in) 
+Statement::Statement()
 {
 	// initiate the precede of the operators
-	prec = { {"(" , 1}  ,{"+" , 2} ,{"-" , 2} ,{"*" , 3},{"/" , 3} ,{"^" , 4} , {"sin" , 5} , {"cos" , 5}, {"tan" , 5}, {"log2" , 5}, {"log10" , 5} };
+	prec = { {"(" , 1}  ,{"+" , 2} ,{"-" , 2} ,{"*" , 3},{"/" , 3} ,{"^" , 4} , {"sin" , 5} , {"cos" , 5}, {"tan" , 5}, {"log2" , 5}, {"log10" , 5} , {"&" , 2}  , {"|" , 2}  , {"==" , 3}  , {">" , 3}  , {"<" , 3}  , {"<=" , 3}  ,{">=" , 3}  , {"~" , 4} };
 };
 Statement::~Statement()
 {
 }
 
-string Statement::getPostfixString()
+string Statement::infixToPostfix(string infix)
 {
-	return postfix;
-}
-
-string Statement::infixToPostfix()
-{
+	string postfix;
 	stack <string> st;
 	stringstream line;
 	string word;
-	cout << infix << endl;
 	line << infix;
 	while (line >> word)
 	{

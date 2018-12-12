@@ -1,5 +1,5 @@
 #pragma once
-#include "Calculator.h"
+#include "Evaluate.h"
 #include "Statement.h"
 using namespace std;
 class Command
@@ -10,4 +10,5 @@ public:
 	virtual void runCommand() = 0;
 protected:
 	string line;
+	static Statement st;
 };

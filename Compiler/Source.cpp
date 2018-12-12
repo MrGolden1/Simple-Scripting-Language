@@ -14,6 +14,7 @@ int main()
 	myCompiler.readCode();
 	myCompiler.StringsToStandard();
 	myCompiler.printCode();
+	myCompiler.findCommands();
 	_getch();
 	return 0;
 }

@@ -2,6 +2,10 @@
 #include <string>
 #include <vector>
 #include "Statement.h"
+#include "Command.h"
+#include "IfCommand.h"
+#include "Assignment.h"
+#include "CoutCommand.h"
 using namespace std;
 class Compiler
 {
@@ -15,6 +19,7 @@ public:
 	string makeStringStandard(string line);
 private:
 	vector <string> lines;
+	vector <Command *> MC;
 	map <string, double> var;
 };
 

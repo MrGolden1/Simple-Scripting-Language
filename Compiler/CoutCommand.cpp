@@ -2,10 +2,12 @@
 
 
 
-CoutCommand::CoutCommand()
-{
-}
 
+
+CoutCommand::CoutCommand(string input)
+{
+	line = input;
+}
 
 CoutCommand::~CoutCommand()
 {

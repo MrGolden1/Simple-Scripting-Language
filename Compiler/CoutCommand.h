@@ -4,7 +4,7 @@ class CoutCommand :
 	public Command
 {
 public:
-	CoutCommand();
+	CoutCommand(string input);
 	~CoutCommand();
 };
 

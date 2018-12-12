@@ -4,7 +4,7 @@ class Assignment :
 	public Command
 {
 public:
-	Assignment();
+	Assignment(string input);
 	~Assignment();
 };
 

@@ -2,8 +2,9 @@
 
 
 
-Assignment::Assignment()
+Assignment::Assignment(string input)
 {
+	line = input;
 }
 
 

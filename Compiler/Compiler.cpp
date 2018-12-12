@@ -4,6 +4,7 @@
 
 Compiler::Compiler()
 {
+	Command::setVariables(var);
 }
 
 
@@ -19,6 +20,7 @@ void Compiler::readCode()
 		getline(cin, buf);
 		lines.push_back(buf);
 	}
+	lines.pop_back();
 }
 
 void Compiler::StringsToStandard()
@@ -34,6 +36,55 @@ void Compiler::printCode()
 	for (int i = 0; i < lines.size(); i++)
 	{
 		cout << lines[i] << endl;
+	}
+}
+
+void Compiler::findCommands()
+{
+	Command *a;
+	string word;
+	for (int i = 0; i < lines.size(); i++)
+	{
+		stringstream ob;
+		ob << lines[i];
+		ob >> word;
+		if (word == "cout")
+		{
+			a = new CoutCommand(lines[i]);
+			MC.push_back(a);
+			continue;
+		}
+		if (word == "if")
+		{
+			a = new IfCommand(lines[i]);
+			MC.push_back(a);
+			continue;
+		}
+		if (word == "elseif")
+		{
+			a = new ElseIfCommand(lines[i]);
+			MC.push_back(a);
+			continue;
+		}
+		if (word == "else")
+		{
+			a = new ElseCommand;
+			MC.push_back(a);
+			continue;
+		}
+		if (word == "end")
+		{
+			a = new End;
+			MC.push_back(a);
+			continue;
+		}
+		ob >> word;
+		if (word == "=")
+		{
+			a = new Assignment(lines[i]);
+			MC.push_back(a);
+			continue;
+		}
 	}
 }
 

@@ -16,6 +16,11 @@ IfCommand::~IfCommand()
 {
 }
 
+void IfCommand::runCommand() 
+{
+	int buf;
+}
+
 
 ElseIfCommand::ElseIfCommand()
 {
@@ -30,6 +35,11 @@ ElseIfCommand ::~ElseIfCommand()
 {
 }
 
+void ElseIfCommand::runCommand() 
+{
+	int buf;
+}
+
 
 ElseCommand::ElseCommand()
 {
@@ -39,10 +49,20 @@ ElseCommand::~ElseCommand()
 {
 }
 
+void ElseCommand::runCommand() 
+{
+	int buf;
+}
+
 End::End()
 {
 }
 
 End::~End()
 {
+}
+
+void End::runCommand() 
+{
+	int buf;
 }

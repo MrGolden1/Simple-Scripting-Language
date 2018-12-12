@@ -6,5 +6,6 @@ class CoutCommand :
 public:
 	CoutCommand(string input);
 	~CoutCommand();
+	virtual void runCommand();
 };
 

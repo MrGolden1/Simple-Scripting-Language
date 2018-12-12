@@ -7,7 +7,6 @@
 #include "Compiler.h"
 #include <conio.h>
 using namespace std;
-
 int main()
 {
 	Compiler myCompiler;
@@ -15,6 +14,7 @@ int main()
 	myCompiler.StringsToStandard();
 	myCompiler.printCode();
 	myCompiler.findCommands();
+	myCompiler.Execute();
 	_getch();
 	return 0;
 }

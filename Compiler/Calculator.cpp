@@ -2,11 +2,12 @@
 constexpr auto PI = 3.141592653589793;
 constexpr auto CoDegreeToRadian = PI / 180;
 using namespace std;
+map <string, double> Calculator::var;
 Calculator::~Calculator()
 {
 }
 
-double Calculator::postfixCalculate()
+double Calculator::postfixCalculate(string postfix)
 {
 	stack <double> st;
 	stringstream line;
@@ -15,7 +16,7 @@ double Calculator::postfixCalculate()
 	double operand1, operand2;
 	while (line >> word)
 	{
-		if (var.find(word) == var.end())
+		if (Calculator::Calculator::var.find(word) == Calculator::var.end())
 		{
 			switch (word[0])
 			{
@@ -108,9 +109,10 @@ double Calculator::postfixCalculate()
 		}
 		else
 		{
-			st.push(var[word]);
+			st.push(Calculator::var[word]);
 		}
 	}
 	return st.top();
+	return 0;
 }
 

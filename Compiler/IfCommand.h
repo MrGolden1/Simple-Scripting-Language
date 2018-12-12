@@ -7,6 +7,7 @@ public:
 	IfCommand();
 	IfCommand(string input);
 	~IfCommand();
+	virtual void runCommand() ;
 };
 
 class ElseIfCommand :
@@ -16,6 +17,7 @@ public:
 	ElseIfCommand();
 	ElseIfCommand(string input);
 	~ElseIfCommand();
+	virtual void runCommand() ;
 private:
 };
 
@@ -25,7 +27,7 @@ class ElseCommand
 public:
 	ElseCommand();
 	~ElseCommand();
-
+	virtual void runCommand() ;
 private:
 
 };
@@ -37,8 +39,7 @@ class End
 public:
 	End();
 	~End();
-
+	virtual void runCommand();
 private:
 
 };
-

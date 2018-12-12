@@ -12,3 +12,8 @@ CoutCommand::CoutCommand(string input)
 CoutCommand::~CoutCommand()
 {
 }
+
+void CoutCommand::runCommand()
+{
+	int buf;
+}

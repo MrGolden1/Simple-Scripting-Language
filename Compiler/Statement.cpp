@@ -16,7 +16,7 @@ string Statement::getPostfixString()
 	return postfix;
 }
 
-void Statement::infixToPostfix()
+string Statement::infixToPostfix()
 {
 	stack <string> st;
 	stringstream line;
@@ -63,4 +63,5 @@ void Statement::infixToPostfix()
 		postfix += st.top() + " ";
 		st.pop();
 	}
+	return postfix;
 }

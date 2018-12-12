@@ -4,7 +4,6 @@
 
 Compiler::Compiler()
 {
-	Command::setVariables(var);
 }
 
 
@@ -85,6 +84,14 @@ void Compiler::findCommands()
 			MC.push_back(a);
 			continue;
 		}
+	}
+}
+
+void Compiler::Execute()
+{
+	for (int i = 0; i < MC.size(); i++)
+	{
+		MC[i]->runCommand();
 	}
 }
 

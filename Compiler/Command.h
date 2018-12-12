@@ -1,15 +1,13 @@
 #pragma once
-#include <string>
-#include <iostream>
-#include <map>
+#include "Calculator.h"
+#include "Statement.h"
 using namespace std;
 class Command
 {
 public:
 	Command();
-	~Command();
-	static void setVariables(map <string, double> & in);
+	virtual ~Command() {};
+	virtual void runCommand() = 0;
 protected:
 	string line;
-	static map <string, double> & var;
 };

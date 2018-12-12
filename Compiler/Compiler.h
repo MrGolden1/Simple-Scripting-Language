@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Statement.h"
 #include "Command.h"
 #include "IfCommand.h"
 #include "Assignment.h"
@@ -16,10 +15,10 @@ public:
 	void StringsToStandard();
 	void printCode();
 	void findCommands();
+	void Execute();
 	string makeStringStandard(string line);
 private:
 	vector <string> lines;
 	vector <Command *> MC;
-	map <string, double> var;
 };
 

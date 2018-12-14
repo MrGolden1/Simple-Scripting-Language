@@ -5,6 +5,8 @@
 #include <map>
 #include <vector>
 #include <stack>
+#include <fstream>
+#include <math.h>
 using namespace std;
 class Evaluate
 {

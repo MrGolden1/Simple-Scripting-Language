@@ -15,7 +15,7 @@ void Assignment::runCommand()
 {
 	if (!Evaluate::ifStack.empty())
 	{
-		if (Evaluate::ifStack.top().first && Evaluate::ifStack.top().second)
+		if (!(Evaluate::ifStack.top().first ^ Evaluate::ifStack.top().second))
 		{
 			return;
 		}

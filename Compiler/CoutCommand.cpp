@@ -17,14 +17,16 @@ void CoutCommand::runCommand()
 {
 	if (!Evaluate::ifStack.empty())
 	{
-		if (Evaluate::ifStack.top().first && Evaluate::ifStack.top().second)
+		if (!(Evaluate::ifStack.top().first ^ Evaluate::ifStack.top().second))
 		{
 			return;
 		}
 	}
+	//cout << Evaluate::ifStack.top().first << "     " << Evaluate::ifStack.top().second << endl;
 	stringstream ob;
 	string word;
 	ob << line;
-	ob >> word >> word >> word;
-	cout << word << " = " << Evaluate::var[word] << endl;
+	ob >> word >> word;
+	getline(ob, word);
+	cout << Evaluate::mathPostfixEvaluate(st.infixToPostfix( word)) << endl;
 }

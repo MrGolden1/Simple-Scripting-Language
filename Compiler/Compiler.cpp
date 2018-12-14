@@ -22,6 +22,19 @@ void Compiler::readCode()
 	lines.pop_back();
 }
 
+void Compiler::readFromfile(string FileName)
+{
+	ifstream iMyFile;
+	string buf;
+	iMyFile.open(FileName, ios::app);
+	while (!iMyFile.eof())
+	{
+		getline(iMyFile, buf);
+		lines.push_back(buf);
+	}
+	iMyFile.close();
+}
+
 void Compiler::StringsToStandard()
 {
 	for (int i = 0; i < lines.size(); i++)
@@ -118,7 +131,7 @@ string Compiler::makeStringStandard(string line)
 			standard += line[i++];
 			standard += line[i++];
 			standard += ' ';
-			preIsOperator = false;
+			preIsOperator = true;
 			continue;
 		}
 		if ( !preIsOperator && (line[i] == '*' || line[i] == '/' || line[i] == '+' || line[i] == '-' || line[i] == '=' || line[i] == '^' ) )
@@ -128,11 +141,23 @@ string Compiler::makeStringStandard(string line)
 			preIsOperator = true;
 			continue;
 		}
-		if (line[i] == ')' || line[i] == '&' || line[i] == '~' || line[i] == '|' || line[i] == '>' || line[i] == '<' || line[i] == ';')
+		if (line[i] == ';')
+		{
+			i++;
+			continue;
+		}
+		if (line[i] == ')' )
 		{
 			standard += line[i++];
 			standard += ' ';
 			preIsOperator = false;
+			continue;
+		}
+		if ( line[i] == '&' || line[i] == '~' || line[i] == '|' || line[i] == '>' || line[i] == '<')
+		{
+			standard += line[i++];
+			standard += ' ';
+			preIsOperator = true;
 			continue;
 		}
 		if (line[i] == '(')
@@ -154,7 +179,11 @@ string Compiler::makeStringStandard(string line)
 			{
 				standard += ' ';
 			}
-			preIsOperator = false;
+			if (buf == "if" || buf == "elseif" || buf == "else")
+			{
+				preIsOperator = true;
+			}
+			else preIsOperator = false;
 			continue;
 		}
 		if ((line[i] >= '0' && line[i] <= '9') || line[i] == '-')

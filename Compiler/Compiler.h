@@ -12,6 +12,7 @@ public:
 	Compiler();
 	~Compiler();
 	void readCode(); // read codes from cmd while eof
+	void readFromfile(string);
 	void StringsToStandard();
 	void printCode();
 	void findCommands();

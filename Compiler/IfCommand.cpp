@@ -22,6 +22,7 @@ void IfCommand::runCommand()
 	{
 		if (Evaluate::ifStack.top().first && Evaluate::ifStack.top().second)
 		{
+			Evaluate::ifStack.push(make_pair(true, true));
 			return;
 		}
 	}
@@ -35,6 +36,7 @@ void IfCommand::runCommand()
 		expression << word + " ";
 	}
 	bool conditon = Evaluate::logicPostfixEvaluate(st.infixToPostfix(expression.str()));
+//	cout << "con : " << conditon << endl;
 	if (conditon)
 	{
 		Evaluate::ifStack.pop();
@@ -60,7 +62,6 @@ void ElseIfCommand::runCommand()
 {
 	if (Evaluate::ifStack.top().first && Evaluate::ifStack.top().second)
 	{
-		Evaluate::ifStack.push(make_pair(true, true));
 		return;
 	}
 	if (Evaluate::ifStack.top().first && !Evaluate::ifStack.top().second)
@@ -123,5 +124,7 @@ End::~End()
 
 void End::runCommand() 
 {
-	Evaluate::ifStack.pop();
+	{
+		Evaluate::ifStack.pop();
+	}
 }

@@ -5,4 +5,3 @@
 Command::Command()
 {
 }
-

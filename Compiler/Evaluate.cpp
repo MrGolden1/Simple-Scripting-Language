@@ -25,6 +25,7 @@ bool Evaluate::logicPostfixEvaluate(string postfix)
 				line >> operand1;
 				st.push(operand1);
 			}
+			break;
 			case '|':
 			{
 				operand2 = st.top();
@@ -88,10 +89,96 @@ bool Evaluate::logicPostfixEvaluate(string postfix)
 				st.pop();
 				operand1 = st.top();
 				st.pop();
+				if (operand1 -int(operand1) > 0.99999999999999)
+				{
+					operand1 = int(operand1) + 1;
+				}
+				if (operand2 - int(operand2) > 0.99999999999999)
+				{
+					operand2 = int(operand2) + 1;
+				}
 				st.push(operand1 == operand2);
 			}
 			break;
+			case '+':
+			{
+				operand2 = st.top();
+				st.pop();
+				operand1 = st.top();
+				st.pop();
+				st.push(operand1 + operand2);
+			}
+			break;
+			case '-':
+			{
+				operand2 = st.top();
+				st.pop();
+				operand1 = st.top();
+				st.pop();
+				st.push(operand1 - operand2);
+			}
+			break;
+			case '*':
+			{
+				operand2 = st.top();
+				st.pop();
+				operand1 = st.top();
+				st.pop();
+				st.push(operand1 * operand2);
+			}
+			break;
+			case '/':
+			{
+				operand2 = st.top();
+				st.pop();
+				operand1 = st.top();
+				st.pop();
+				st.push(operand1 / operand2);
+			}
+			break;
+			case '^':
+			{
+				operand2 = st.top();
+				st.pop();
+				operand1 = st.top();
+				st.pop();
+				st.push(pow(operand1, operand2));
+			}
+			break;
+			break;
 			default:
+			{
+				if (word == "sin")
+				{
+					operand1 = st.top();
+					st.pop();
+					st.push(sin(operand1 * PI / 180));
+				}
+				else if (word == "cos")
+				{
+					operand1 = st.top();
+					st.pop();
+					st.push(cos(operand1 * PI / 180));
+				}
+				else if (word == "tan")
+				{
+					operand1 = st.top();
+					st.pop();
+					st.push(tan(operand1 * PI / 180));
+				}
+				else if (word == "log2")
+				{
+					operand1 = st.top();
+					st.pop();
+					st.push(log2(operand1));
+				}
+				else if (word == "log10")
+				{
+					operand1 = st.top();
+					st.pop();
+					st.push(log10(operand1));
+				}
+			}
 				break;
 			}
 		}
@@ -100,7 +187,7 @@ bool Evaluate::logicPostfixEvaluate(string postfix)
 			st.push(Evaluate::var[word]);
 		}
 	}
-	return st.top();
+	return bool(st.top());
 }
 
 double Evaluate::mathPostfixEvaluate(string postfix)

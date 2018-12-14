@@ -1,0 +1,19 @@
+a = log2(log2(log2(log10(4*10^8/4))+1));
+b=sin(90)+log2(log10(10000))
+d=(sin(45)^2^2)*4+1
+c=4
+if ((b>a) | (a<c) ) &(b>d) then
+cout << b
+cout << d
+cout << a
+cout << c
+elseif (2^3^2 >= d ^2)
+e = 2 ^3^2
+cout <<e
+elseif (d * a >= b*a )
+cout << a
+end
+if (( a+d * sin(30)) ^2 - 1 ) == (2+3*3-8) then
+a=a*2
+cout << a
+end

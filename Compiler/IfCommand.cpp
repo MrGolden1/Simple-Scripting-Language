@@ -35,7 +35,7 @@ void IfCommand::runCommand()
 	{
 		expression << word + " ";
 	}
-	bool conditon = Evaluate::logicPostfixEvaluate(st.infixToPostfix(expression.str()));
+	bool conditon = Evaluate::PostfixEvaluate(st.infixToPostfix(expression.str()));
 //	cout << "con : " << conditon << endl;
 	if (conditon)
 	{
@@ -78,7 +78,7 @@ void ElseIfCommand::runCommand()
 	{
 		expression << word + " ";
 	}
-	bool conditon = Evaluate::logicPostfixEvaluate(st.infixToPostfix(expression.str()));
+	bool conditon = Evaluate::PostfixEvaluate(st.infixToPostfix(expression.str()));
 	if (conditon)
 	{
 		Evaluate::ifStack.pop();

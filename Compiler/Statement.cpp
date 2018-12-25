@@ -27,7 +27,7 @@ string Statement::infixToPostfix(string infix)
 		}
 		if (!(prec.find(word) == prec.end()))
 		{
-			while (!st.empty() && prec[word] <= prec[st.top()])
+			while (!st.empty() && prec[word] <= prec[st.top()] && (word != "^" && st.top() != "^"))
 			{
 				postfix += st.top() + " ";
 				st.pop();

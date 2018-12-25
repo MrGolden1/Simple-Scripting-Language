@@ -21,5 +21,6 @@ public:
 private:
 	vector <string> lines;
 	vector <Command *> MC;
+
 };
 

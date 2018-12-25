@@ -21,7 +21,7 @@ void Assignment::runCommand()
 		}
 	}
 	parsingExpression();
-	Evaluate::var[left] = Evaluate::mathPostfixEvaluate(st.infixToPostfix(right));
+	Evaluate::var[left] = Evaluate::PostfixEvaluate(st.infixToPostfix(right));
 }
 
 void Assignment::parsingExpression() 

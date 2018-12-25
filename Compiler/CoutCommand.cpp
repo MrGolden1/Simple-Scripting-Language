@@ -28,5 +28,5 @@ void CoutCommand::runCommand()
 	ob << line;
 	ob >> word >> word;
 	getline(ob, word);
-	cout << Evaluate::mathPostfixEvaluate(st.infixToPostfix( word)) << endl;
+	cout << Evaluate::PostfixEvaluate(st.infixToPostfix( word)) << endl;
 }

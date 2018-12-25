@@ -14,8 +14,8 @@ int main()
 	myCompiler.StringsToStandard();
 	system("cls");
 	myCompiler.printCode();
-	cout << endl << endl << "output    -----------------------------------" << endl << endl;
 	myCompiler.findCommands();
+	cout << endl << endl << "output    -----------------------------------" << endl << endl;
 	myCompiler.Execute();
 	_getch();
 	return 0;

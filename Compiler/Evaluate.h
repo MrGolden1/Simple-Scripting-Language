@@ -13,8 +13,7 @@ class Evaluate
 public:
 	Evaluate();
 	~Evaluate();
-	static double mathPostfixEvaluate(string postfix);
-	static bool logicPostfixEvaluate(string postfix);
+	static double PostfixEvaluate(string postfix);
 	static map<string, double> var;
 	static stack <pair<bool,bool>> ifStack;
 };

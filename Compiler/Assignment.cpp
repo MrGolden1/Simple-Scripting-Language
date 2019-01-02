@@ -1,7 +1,6 @@
 #include "Assignment.h"
-Statement Command::st;
 using namespace std;
-Assignment::Assignment(string input)
+Assignment::Assignment(string input, map<string, double> &in, stack <pair<bool, bool>> &r) : var(in) ,Command(r)
 {
 	line = input;
 }
@@ -13,24 +12,22 @@ Assignment::~Assignment()
 
 void Assignment::runCommand()
 {
-	if (!Evaluate::ifStack.empty())
+	if (!runStatus.empty())
 	{
-		if (!(Evaluate::ifStack.top().first ^ Evaluate::ifStack.top().second))
+		if (!(runStatus.top().first ^ runStatus.top().second))
 		{
 			return;
 		}
 	}
 	parsingExpression();
-	Evaluate::var[left] = Evaluate::PostfixEvaluate(st.infixToPostfix(right));
+	Evaluate ev(right,var);
+	var[left] = ev.PostfixEvaluate();
 }
 
 void Assignment::parsingExpression() 
 {
-	stringstream ob;
-	string word;
-	ob << line;
-	ob >> word;
-	left = word;
-	ob >> word; // get = and take it away
-	getline(ob, right);
+	string buf = line;
+	int assignLocation = buf.find('=');
+	right = buf.substr(assignLocation + 1);
+	left = buf.erase(assignLocation - 1);
 }

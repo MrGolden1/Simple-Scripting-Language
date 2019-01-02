@@ -120,13 +120,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Assignment.cpp" />
-    <ClCompile Include="Command.cpp" />
     <ClCompile Include="Compiler.cpp" />
     <ClCompile Include="CoutCommand.cpp" />
     <ClCompile Include="Evaluate.cpp" />
     <ClCompile Include="IfCommand.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="Statement.cpp" />
+    <ClCompile Include="WhileCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assignment.h" />
@@ -135,7 +134,7 @@
     <ClInclude Include="CoutCommand.h" />
     <ClInclude Include="Evaluate.h" />
     <ClInclude Include="IfCommand.h" />
-    <ClInclude Include="Statement.h" />
+    <ClInclude Include="WhileCommand.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

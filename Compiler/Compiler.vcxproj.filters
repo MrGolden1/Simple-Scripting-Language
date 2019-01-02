@@ -18,13 +18,7 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Statement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Compiler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Command.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Assignment.cpp">
@@ -39,11 +33,11 @@
     <ClCompile Include="Evaluate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WhileCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Statement.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Compiler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -60,6 +54,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Evaluate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WhileCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

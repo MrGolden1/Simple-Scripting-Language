@@ -1,10 +1,7 @@
 #include "CoutCommand.h"
 
 
-
-
-
-CoutCommand::CoutCommand(string input)
+CoutCommand::CoutCommand(string input, map<string, double> &in, stack <pair<bool, bool>> &r) : var(in) ,Command(r)
 {
 	line = input;
 }
@@ -15,18 +12,14 @@ CoutCommand::~CoutCommand()
 
 void CoutCommand::runCommand()
 {
-	if (!Evaluate::ifStack.empty())
+	if (!runStatus.empty())
 	{
-		if (!(Evaluate::ifStack.top().first ^ Evaluate::ifStack.top().second))
+		if (!(runStatus.top().first ^ runStatus.top().second))
 		{
 			return;
 		}
 	}
-	//cout << Evaluate::ifStack.top().first << "     " << Evaluate::ifStack.top().second << endl;
-	stringstream ob;
-	string word;
-	ob << line;
-	ob >> word >> word;
-	getline(ob, word);
-	cout << Evaluate::PostfixEvaluate(st.infixToPostfix( word)) << endl;
+	int printLocation = line.find("<<");
+	Evaluate ev(line.substr(printLocation + 2),var);
+	cout << ev.PostfixEvaluate() << endl;
 }

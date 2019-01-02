@@ -17,7 +17,7 @@ void Compiler::readCode()
 	while (!cin.eof())
 	{
 		getline(cin, buf);
-		lines.push_back(buf);
+		lines.push_back(makeStringStandard(buf));
 	}
 	lines.pop_back();
 }
@@ -30,18 +30,12 @@ void Compiler::readFromfile(string FileName)
 	while (!iMyFile.eof())
 	{
 		getline(iMyFile, buf);
-		lines.push_back(buf);
+		lines.push_back(makeStringStandard(buf));
 	}
 	iMyFile.close();
 }
 
-void Compiler::StringsToStandard()
-{
-	for (int i = 0; i < lines.size(); i++)
-	{
-		lines[i] = makeStringStandard(lines[i]);
-	}
-}
+
 
 void Compiler::printCode()
 {
@@ -69,38 +63,50 @@ void Compiler::findCommands()
 		ob >> word;
 		if (word == "cout")
 		{
-			a = new CoutCommand(lines[i]);
+			a = new CoutCommand(lines[i], var,runStatus);
 			MC.push_back(a);
 			continue;
 		}
 		if (word == "if")
 		{
-			a = new IfCommand(lines[i]);
+			a = new IfCommand(lines[i],var,runStatus);
 			MC.push_back(a);
 			continue;
 		}
 		if (word == "elseif")
 		{
-			a = new ElseIfCommand(lines[i]);
+			a = new ElseIfCommand(lines[i],var,runStatus);
 			MC.push_back(a);
 			continue;
 		}
 		if (word == "else")
 		{
-			a = new ElseCommand;
+			a = new ElseCommand(runStatus);
 			MC.push_back(a);
 			continue;
 		}
 		if (word == "end")
 		{
-			a = new End;
+			a = new End(runStatus);
+			MC.push_back(a);
+			continue;
+		}
+		if (word == "while")
+		{
+			a = new WhileCommand(lines[i], var, runStatus,loopLocator,runningLine);
+			MC.push_back(a);
+			continue;
+		}
+		if (word == "finish")
+		{
+			a = new FinishCommand(runStatus, loopLocator, runningLine);
 			MC.push_back(a);
 			continue;
 		}
 		ob >> word;
 		if (word == "=")
 		{
-			a = new Assignment(lines[i]);
+			a = new Assignment(lines[i],var,runStatus);
 			MC.push_back(a);
 			continue;
 		}
@@ -109,9 +115,10 @@ void Compiler::findCommands()
 
 void Compiler::Execute()
 {
-	for (int i = 0; i < MC.size(); i++)
+	runningLine = 0;
+	for (; runningLine < MC.size(); runningLine++)
 	{
-		MC[i]->runCommand();
+		MC[runningLine]->runCommand();
 	}
 }
 
@@ -179,7 +186,7 @@ string Compiler::makeStringStandard(string line)
 			{
 				standard += ' ';
 			}
-			if (buf == "if" || buf == "elseif" || buf == "else")
+			if (buf == "if" || buf == "elseif" || buf == "else" || buf == "while")
 			{
 				preIsOperator = true;
 			}
@@ -209,3 +216,5 @@ string Compiler::makeStringStandard(string line)
 	}
 	return standard;
 }
+
+

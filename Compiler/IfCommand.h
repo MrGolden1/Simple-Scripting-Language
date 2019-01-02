@@ -5,31 +5,29 @@ class IfCommand :
 {
 public:
 	IfCommand();
-	IfCommand(string input);
+	IfCommand(string input, map<string, double> &in, stack <pair<bool, bool>> &r);
 	~IfCommand();
 	virtual void runCommand();
+protected:
+	map<string, double> &var;
 };
 
 class ElseIfCommand :
 	public IfCommand
 {
 public:
-	ElseIfCommand();
-	ElseIfCommand(string input);
+	ElseIfCommand(string input, map<string, double> &in, stack <pair<bool, bool>> &r);
 	~ElseIfCommand();
 	virtual void runCommand() ;
-private:
 };
 
 class ElseCommand
 	: public Command
 {
 public:
-	ElseCommand();
+	ElseCommand(stack <pair<bool, bool>> &r);
 	~ElseCommand();
 	virtual void runCommand() ;
-private:
-
 };
 
 
@@ -37,9 +35,7 @@ class End
 	: public Command
 {
 public:
-	End();
+	End(stack <pair<bool, bool>> &r);
 	~End();
 	virtual void runCommand();
-private:
-
 };

@@ -1,13 +1,8 @@
 #include "IfCommand.h"
-
-stack <pair<bool,bool>> Evaluate::ifStack;
-
-IfCommand::IfCommand()
-{
-}
+using namespace std;
 
 
-IfCommand::IfCommand(string input)
+IfCommand::IfCommand(string input, map<string, double> &in, stack <pair<bool, bool>> &r) : var(in) , Command(r)
 {
 	line = input;
 }
@@ -18,40 +13,29 @@ IfCommand::~IfCommand()
 
 void IfCommand::runCommand() 
 {
-	if (!Evaluate::ifStack.empty())
+	if (!runStatus.empty())
 	{
-		if (Evaluate::ifStack.top().first && Evaluate::ifStack.top().second)
+		if (runStatus.top().first && runStatus.top().second)
 		{
-			Evaluate::ifStack.push(make_pair(true, true));
+			runStatus.push(make_pair(true, true));
 			return;
 		}
 	}
-	Evaluate::ifStack.push(make_pair(false, false));
-	stringstream ob, expression;
-	string word;
-	ob << line;
-	ob >> word;
-	while (ob >> word && word != "then")
-	{
-		expression << word + " ";
-	}
-	bool conditon = Evaluate::PostfixEvaluate(st.infixToPostfix(expression.str()));
-//	cout << "con : " << conditon << endl;
+	runStatus.push(make_pair(false, false));
+	string buf = line;
+	Evaluate ev(buf.erase(0,3),var);
+	bool conditon =ev.PostfixEvaluate();
 	if (conditon)
 	{
-		Evaluate::ifStack.pop();
-		Evaluate::ifStack.push(make_pair(true, false));
+		runStatus.pop();
+		runStatus.push(make_pair(true, false));
 	}
 }
 
 
-ElseIfCommand::ElseIfCommand()
-{
-}
 
-ElseIfCommand::ElseIfCommand(string input)
+ElseIfCommand::ElseIfCommand(string input, map<string, double> &in, stack <pair<bool, bool>> &r) : IfCommand(input,in,r)
 {
-	line = input;
 }
 
 ElseIfCommand ::~ElseIfCommand()
@@ -60,34 +44,28 @@ ElseIfCommand ::~ElseIfCommand()
 
 void ElseIfCommand::runCommand()
 {
-	if (Evaluate::ifStack.top().first && Evaluate::ifStack.top().second)
+	if (runStatus.top().first && runStatus.top().second)
 	{
 		return;
 	}
-	if (Evaluate::ifStack.top().first && !Evaluate::ifStack.top().second)
+	if (runStatus.top().first && !runStatus.top().second)
 	{
-		Evaluate::ifStack.pop();
-		Evaluate::ifStack.push(make_pair(true, true));
+		runStatus.pop();
+		runStatus.push(make_pair(true, true));
 		return;
 	}
-	stringstream ob, expression;
-	string word;
-	ob << line;
-	ob >> word;
-	while (ob >> word && word != "then")
-	{
-		expression << word + " ";
-	}
-	bool conditon = Evaluate::PostfixEvaluate(st.infixToPostfix(expression.str()));
+	string buf = line;
+	Evaluate ev(buf.erase(0,3),var);
+	bool conditon = ev.PostfixEvaluate();
 	if (conditon)
 	{
-		Evaluate::ifStack.pop();
-		Evaluate::ifStack.push(make_pair(true, false));
+		runStatus.pop();
+		runStatus.push(make_pair(true, false));
 	}
 }
 
 
-ElseCommand::ElseCommand()
+ElseCommand::ElseCommand(stack <pair<bool, bool>> &r) : Command(r)
 {
 }
 
@@ -97,22 +75,22 @@ ElseCommand::~ElseCommand()
 
 void ElseCommand::runCommand()
 {
-	if (Evaluate::ifStack.top().first && Evaluate::ifStack.top().second)
+	if (runStatus.top().first && runStatus.top().second)
 	{
 		return;
 	}
-	if (Evaluate::ifStack.top().first && !Evaluate::ifStack.top().second)
+	if (runStatus.top().first && !runStatus.top().second)
 	{
-		Evaluate::ifStack.pop();
-		Evaluate::ifStack.push(make_pair(true, true));
+		runStatus.pop();
+		runStatus.push(make_pair(true, true));
 		return;
 	}
-	Evaluate::ifStack.pop();
-	Evaluate::ifStack.push(make_pair(true, false));
+	runStatus.pop();
+	runStatus.push(make_pair(true, false));
 	return;
 }
 
-End::End()
+End::End(stack <pair<bool, bool>> &r) : Command(r)
 {
 
 }
@@ -125,6 +103,6 @@ End::~End()
 void End::runCommand() 
 {
 	{
-		Evaluate::ifStack.pop();
+		runStatus.pop();
 	}
 }

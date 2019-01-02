@@ -1,13 +1,65 @@
 #include "Evaluate.h"
 constexpr auto PI = 3.141592653589793;
-constexpr auto CoDegreeToRadian = PI / 180;
 using namespace std;
-map <string, double> Evaluate::var;
+map <string, int> Evaluate::prec = { {"(" , 1}  ,{"+" , 7} ,{"-" , 7} ,{"*" , 8},{"/" , 8} ,{"^" , 9} , {"sin" , 10} , {"cos" , 10}, {"tan" , 10}, {"log2" , 10}, {"log10" , 10} , {"&" , 2}  , {"|" , 2}  , {"==" , 3}  , {">" , 3}  , {"<" , 3}  , {"<=" , 3}  ,{">=" , 3}  , {"~" , 4} };
+Evaluate::Evaluate(string str , map<string, double> &in) : var(in), statement(str)
+{
+	infixToPostfix();
+}
 Evaluate::~Evaluate()
 {
 }
 
-double Evaluate::PostfixEvaluate(string postfix)
+void Evaluate::infixToPostfix()
+{
+	postfix = "";
+	stack <string> st;
+	stringstream line;
+	string word;
+	line << statement;
+	while (line >> word)
+	{
+		if (word == "(")
+		{
+			st.push(word);
+			continue;
+		}
+		if (!(prec.find(word) == prec.end()))
+		{
+			while (!st.empty() && prec[word] <= prec[st.top()] && (word != "^" && st.top() != "^"))
+			{
+				postfix += st.top() + " ";
+				st.pop();
+			}
+			st.push(word);
+			continue;
+		}
+		else
+		{
+			if (word == ")")
+			{
+				while (!st.empty() && st.top() != "(")
+				{
+					postfix += st.top() + " ";
+					st.pop();
+				}
+				if (!st.empty() && st.top() == "(")
+				{
+					st.pop();
+				}
+				continue;
+			}
+			postfix += word + " ";
+		}
+	}
+	while (!st.empty())
+	{
+		postfix += st.top() + " ";
+		st.pop();
+	}
+}
+
+double Evaluate::PostfixEvaluate()
 {
 	stack <double> st;
 	stringstream line;
@@ -16,7 +68,7 @@ double Evaluate::PostfixEvaluate(string postfix)
 	double operand1, operand2;
 	while (line >> word)
 	{
-		if (Evaluate::Evaluate::var.find(word) == Evaluate::var.end())
+		if (var.find(word) == var.end())
 		{
 			switch (word[0])
 			{
@@ -24,6 +76,15 @@ double Evaluate::PostfixEvaluate(string postfix)
 			{
 				line >> operand1;
 				st.push(operand1);
+				/*if (word == "#")
+				{
+					line >> operand1;
+					st.push(operand1);
+					break;
+				}
+				if (isNumber(word))
+					st.push(stof(word));
+				else st.push(var[word]);*/
 			}
 			break;
 			case '|':
@@ -117,8 +178,12 @@ double Evaluate::PostfixEvaluate(string postfix)
 			{
 				operand2 = st.top();
 				st.pop();
-				operand1 = st.top();
-				st.pop();
+				if (!st.empty())
+				{
+					operand1 = st.top();
+					st.pop();
+				}
+				else operand1 = 0;
 				st.push(operand1 - operand2);
 			}
 			break;
@@ -183,13 +248,24 @@ double Evaluate::PostfixEvaluate(string postfix)
 					st.push(log10(operand1));
 				}
 			}
-				break;
+			break;
 			}
 		}
-		else
-		{
-			st.push(Evaluate::var[word]);
+		else {
+			st.push(var[word]);
 		}
 	}
 	return (st.top());
+}
+
+bool Evaluate::isNumber(string s)
+{
+	for (int i = 0; i < s.size(); i++)
+	{
+		if ((s[i] < '0' || s[i] > '9') && s[i] != '-' && s[i] != '.' )
+		{
+			return false;
+		}
+	}
+	return true;
 }

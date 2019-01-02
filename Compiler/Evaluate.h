@@ -11,10 +11,15 @@ using namespace std;
 class Evaluate
 {
 public:
-	Evaluate();
+	Evaluate(string str, map<string, double> &in);
 	~Evaluate();
-	static double PostfixEvaluate(string postfix);
-	static map<string, double> var;
-	static stack <pair<bool,bool>> ifStack;
+	double PostfixEvaluate();
+private:
+	void infixToPostfix();
+	string statement;
+	string postfix;
+	static map<string,int> prec;
+	map<string, double> &var;
+	bool isNumber(string s);
 };
 

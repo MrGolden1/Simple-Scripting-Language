@@ -10,11 +10,11 @@ int main()
 	Compiler myCompiler;
 	myCompiler.readCode();
 	//myCompiler.readFromfile("test.txt");
-	myCompiler.findCommands();
+	//myCompiler.findCommands();
 	system("cls");
 	myCompiler.printCode();
 	cout << endl << endl << "output    -----------------------------------" << endl << endl;
-	myCompiler.Execute();
-	_getch();
+	//myCompiler.Execute();
+	system("pause>n");
 	return 0;
 }
